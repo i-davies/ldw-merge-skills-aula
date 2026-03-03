@@ -1,5 +1,9 @@
 from flask import Flask
 from flasgger import Swagger
+from schemas.course_schema import CourseSchema
+from schemas.lesson_schema import LessonSchema
+from schemas.question_schema import QuestionSchema, QuestionIdSchema
+from schemas.progress_schema import SubmitAnswerSchema, ProgressResponseSchema
 
 def create_app():
     app = Flask(__name__)
@@ -11,7 +15,31 @@ def create_app():
         'description': 'Plataforma de aprendizado de habilidades de desenvolvimento web',
         'specs_route': '/apidocs/'
     }
-    Swagger(app)
+
+    swagger_template = {
+        "tags" : [
+            {"name": "Health"},
+            {"name": "Cursos"},
+            {"name": "Aulas"},
+            {"name": "Perguntas"},
+            {"name": "Progresso"}
+        ],
+        "definitions": {
+            "Course" : CourseSchema.model_json_schema(),
+            "Lesson": LessonSchema.model_json_schema(),
+            "Question": QuestionSchema.model_json_schema(),
+            "QuestionId": QuestionIdSchema.model_json_schema(),
+            "SubmitAnswer": SubmitAnswerSchema.model_json_schema(),
+            "UserProgress": ProgressResponseSchema.model_json_schema(),
+            "Error": {
+                "type": "object",
+                "properties": {"error": {"type": "string"}}
+            }
+
+        }
+    }
+
+    Swagger(app, template=swagger_template)
 
     # Espaço reservado para registrar Blueprints
      # Register Blueprints
@@ -19,11 +47,13 @@ def create_app():
     from routes.courses import courses_bp
     from routes.lessons import lessons_bp
     from routes.questions import questions_bp
+    from routes.progress import progress_bp
     
     app.register_blueprint(health_bp, url_prefix='/api')
     app.register_blueprint(courses_bp, url_prefix='/api/courses')
     app.register_blueprint(lessons_bp, url_prefix='/api/lessons')
     app.register_blueprint(questions_bp, url_prefix='/api/questions')
+    app.register_blueprint(progress_bp, url_prefix='/api/progress')
 
     return app
 
