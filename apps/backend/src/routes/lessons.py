@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from routes.questions import QUESTIONS_DB
+from schemas.question_schema import QuestionIdSchema
 
 lessons_bp = Blueprint('lessons', __name__)
 
@@ -31,10 +32,7 @@ def get_questions_by_lesson(lesson_id):
         schema:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
+            $ref: '#/definitions/QuestionId'
       404:
         description: Aula não encontrada
     """
@@ -48,4 +46,6 @@ def get_questions_by_lesson(lesson_id):
     # Aqui, estamos filtrando as perguntas pelo 'lesson_id' e retornando 
     # apenas um dicionário contendo o 'id' de cada pergunta.
     questions = [{"id": q['id']} for q in QUESTIONS_DB if q['lesson_id'] == lesson_id]
-    return jsonify(questions)
+
+    result = [QuestionIdSchema(**q).model_dump() for q in questions]
+    return jsonify(result)

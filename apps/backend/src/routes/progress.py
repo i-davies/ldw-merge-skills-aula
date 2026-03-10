@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from routes.questions import QUESTIONS_DB
 from pydantic import ValidationError
-from schemas.progress_schema import SubmitAnswerSchema
+from schemas.progress_schema import SubmitAnswerSchema, ProgressResponseSchema
 
 progress_bp = Blueprint('progress', __name__)
 

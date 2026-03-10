@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from schemas.question_schema import QuestionSchema 
 
 questions_bp = Blueprint('questions', __name__)
 
@@ -38,24 +39,12 @@ def get_question_details(question_id: int):
       200:
         description: Detalhes da pergunta
         schema:
-          type: object
-          properties:
-            id:
-              type: integer
-            lesson_id:
-              type: integer
-            question:
-              type: string
-            options:
-              type: array
-              items:
-                type: string
-            correct_option:
-              type: integer
+          $ref: '#/definitions/Question'
       404:
         description: Pergunta não encontrada
     """
     question = next((q for q in QUESTIONS_DB if q['id'] == question_id), None)
     if question:
-        return jsonify(question)
+        result = QuestionSchema(**question).model_dump()
+        return jsonify(result)
     return jsonify({"error": "Questão não encontrada"}), 404

@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify
 from routes.lessons import LESSONS_DB
+from schemas.course_schema import CourseSchema
+from schemas.lesson_schema import LessonSchema
 
 courses_bp = Blueprint('courses', __name__)
 
@@ -34,18 +36,10 @@ def get_courses():
         schema:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-              title:
-                type: string
-              description:
-                type: string
-              total_lessons:
-                type: integer
+            $ref: '#/definitions/Course'
     """
-    return jsonify(COURSES_DB)
+    result = [CourseSchema(**c).model_dump() for c in COURSES_DB]
+    return jsonify(result)
 
 @courses_bp.route('/<int:course_id>', methods=['GET'])
 def get_course_by_id(course_id):
@@ -64,14 +58,7 @@ def get_course_by_id(course_id):
       200:
         description: Detalhes do curso
         schema:
-          type: object
-          properties:
-            id:
-              type: integer
-            title:
-              type: string
-            description:
-              type: string
+          $ref: '#/definitions/Course'
       404:
         description: Curso não encontrado
     """
@@ -84,7 +71,8 @@ def get_course_by_id(course_id):
     course = next((c for c in COURSES_DB if c['id'] == course_id), None)
     
     if course:
-        return jsonify(course)
+        result = CourseSchema(**course).model_dump()
+        return jsonify(result)
     
     return jsonify({"error": "Curso não encontrado"}), 404
 

@@ -1,12 +1,23 @@
 from flask import Flask
 from flasgger import Swagger
+from dotenv import load_dotenv
+import os
 from schemas.course_schema import CourseSchema
 from schemas.lesson_schema import LessonSchema
 from schemas.question_schema import QuestionSchema, QuestionIdSchema
 from schemas.progress_schema import SubmitAnswerSchema, ProgressResponseSchema
 
+load_dotenv()
+
 def create_app():
     app = Flask(__name__)
+
+    from database import init_db
+    init_db(app)
+
+    # Detecta o ambiente pelo conteúdo da DATABASE_URL
+    db_url = os.getenv('DATABASE_URL', '')
+    env_label = 'Supabase' if 'supabase' in db_url else 'Local (Docker)'
 
     # Configuração do Swagger
     app.config['SWAGGER'] = {
