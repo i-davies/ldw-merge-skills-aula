@@ -1,27 +1,27 @@
 from flask import Blueprint, jsonify
 from schemas.question_schema import QuestionSchema 
+from models import Question
 
 questions_bp = Blueprint('questions', __name__)
 
-# Banco de Perguntas (Mock)
-QUESTIONS_DB = [
-    {
-        "id": 1,
-        "lesson_id": 1,
-        "question": "O que é Python?",
-        "options": ["Um reptil", "Uma linguagem de programação", "Um editor de texto"],
-        "correct_option": 1
-    },
-    {
-        "id": 2,
-        "lesson_id": 1,
-        "question": "Qual comando imprime textos?",
-        "options": ["echo()", "console.log()", "print()"],
-        "correct_option": 2
-    }
-]
-
-
+@questions_bp.route('/', methods=['GET'])
+def get_all_questions() -> Response:
+    """
+    Lista todas as perguntas disponíveis
+    ---
+    tags:
+      - Perguntas
+    responses:
+      200:
+        description: Lista de todas as perguntas
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/Question'
+    """
+    questions = Question.query.all()
+    result = [QuestionSchema(**q.to_dict()).model_dump() for q in questions]
+    return jsonify(result)
 
 @questions_bp.route('/<int:question_id>', methods=['GET'])
 def get_question_details(question_id: int):
@@ -43,8 +43,8 @@ def get_question_details(question_id: int):
       404:
         description: Pergunta não encontrada
     """
-    question = next((q for q in QUESTIONS_DB if q['id'] == question_id), None)
+    question = Question.query.get(question_id)
     if question:
-        result = QuestionSchema(**question).model_dump()
+        result = QuestionSchema(**question.to_dict()).model_dump()
         return jsonify(result)
     return jsonify({"error": "Questão não encontrada"}), 404
