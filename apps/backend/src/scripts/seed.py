@@ -11,8 +11,12 @@ load_dotenv()
 
 from app import create_app
 from database import db
-from models import Course, Lesson, Question
+from models import Course, Lesson, Question, User
 
+USERS = [
+    {"id": 1, "username": "aluno_teste"},
+    {"id": 2, "username": "aluno_02"}
+]
 
 COURSES = [
     {
@@ -78,6 +82,10 @@ def seed():
             return
 
         print("Populando banco de dados...")
+
+        for u in USERS:
+            db.session.add(User(**u))
+        print(f"  {len(USERS)} usuários inseridos")
 
         for c in COURSES:
             db.session.add(Course(**c))

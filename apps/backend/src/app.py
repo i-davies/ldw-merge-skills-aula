@@ -5,7 +5,13 @@ import os
 from schemas.course_schema import CourseSchema
 from schemas.lesson_schema import LessonSchema
 from schemas.question_schema import QuestionSchema, QuestionIdSchema
-from schemas.progress_schema import SubmitAnswerSchema, ProgressResponseSchema
+from schemas.progress_schema import (
+    SubmitAnswerSchema,
+    AnswerResultSchema,
+    ResetProgressSchema,
+    UserHistorySchema,
+    ProgressResponseSchema
+)
 
 load_dotenv()
 
@@ -41,6 +47,9 @@ def create_app():
             "Question": QuestionSchema.model_json_schema(),
             "QuestionId": QuestionIdSchema.model_json_schema(),
             "SubmitAnswer": SubmitAnswerSchema.model_json_schema(),
+            "AnswerResult": AnswerResultSchema.model_json_schema(),
+            "ResetProgress": ResetProgressSchema.model_json_schema(),
+            "UserHistory": UserHistorySchema.model_json_schema(),
             "UserProgress": ProgressResponseSchema.model_json_schema(),
             "Error": {
                 "type": "object",

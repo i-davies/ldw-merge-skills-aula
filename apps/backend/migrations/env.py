@@ -13,7 +13,7 @@ load_dotenv()
 
 # Importa os models para que o Alembic conheça as tabelas
 from database import db
-from models import Course, Lesson, Question  # noqa: F401
+from models import Course, Lesson, Question, User, QuestionAttempt, LessonProgress
 
 # Configuração do Alembic
 config = context.config

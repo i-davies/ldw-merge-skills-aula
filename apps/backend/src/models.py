@@ -75,3 +75,65 @@ class Question(db.Model):
             'correct_answer': self.correct_answer,
             'order': self.order,
         }
+    
+class User(db.Model):
+    """Modelo SQLAlchemy para a tabela de Usuários (Alunos)."""
+
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True, nullable=False)
+
+    # Relacionamentos
+    attempts = db.relationship('QuestionAttempt', backref='user', lazy=True)
+    progress = db.relationship('LessonProgress', backref='user', lazy=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+        }
+
+
+class QuestionAttempt(db.Model):
+    """Modelo SQLAlchemy para registrar cada tentativa de resposta."""
+
+    __tablename__ = 'question_attempts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
+    selected_option = db.Column(db.Integer, nullable=False)
+    is_correct = db.Column(db.Boolean, default=False)
+    timestamp = db.Column(db.DateTime, server_default=db.func.now())
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'question_id': self.question_id,
+            'selected_option': self.selected_option,
+            'is_correct': self.is_correct,
+            'timestamp': self.timestamp.isoformat() if self.timestamp else None,
+        }
+
+
+class LessonProgress(db.Model):
+    """Modelo SQLAlchemy para registrar o progresso em cada lição."""
+
+    __tablename__ = 'lesson_progress'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
+    is_completed = db.Column(db.Boolean, default=False)
+    completed_at = db.Column(db.DateTime)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'lesson_id': self.lesson_id,
+            'is_completed': self.is_completed,
+            'completed_at': self.completed_at.isoformat() if self.completed_at else None,
+        }
