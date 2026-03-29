@@ -5,7 +5,7 @@ class QuestionSchema(BaseModel):
     lesson_id: int
     question: str
     options: list[str]
-    correct_option: int
+    correct_answer: int
 
 class QuestionIdSchema(BaseModel):
     id: int

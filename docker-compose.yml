@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: mergeskills-db
+    container_name: mergeskills-db-ldw
     restart: unless-stopped
     ports:
       - "5432:5432"
