@@ -44,15 +44,15 @@
 
         <nav class="max-w-6xl max-auto px-6 h-16 flex items-center justify-between">
 
-            <a href="/" class="text-lg font-bold text-gray-900 tracking-tight flex items-center gap-2">
+            <a href="{{ url_for('index') }}" class="text-lg font-bold text-gray-900 tracking-tight flex items-center gap-2">
             <i data-lucide="graduation-cap" class="w-5 h-5 text-brand-600"></i> 
                 MergeSkills
             </a>
 
             <div class="hidden sm:flex items-center gap-6 text-sm text-gray-500">
-                <a href="/#recursos" class="hover:text-gray-900 transition-colors">Recursos</a>
-                <a href="/#cursos" class="hover:text-gray-900 transition-colors">Cursos</a>
-                <a href="/#tech" class="hover:text-gray-900 transition-colors">Stack</a>
+                <a href="{{ url_for('index') }}#recursos" class="hover:text-gray-900 transition-colors">Recursos</a>
+                <a href="{{ url_for('index') }}#cursos" class="hover:text-gray-900 transition-colors">Cursos</a>
+                <a href="{{ url_for('index') }}#tech" class="hover:text-gray-900 transition-colors">Stack</a>
             </div>
         </nav>
     </header>
@@ -65,8 +65,8 @@
         <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
             <p>&copy; 2026 MergeSkills - Projeto LDW FATEC</p>
             <div class="flex gap-4">
-                <a href="/" class="hover:text-gray-600 transition-colors">Inicio</a>
-                <a href="/#cursos" class="hover:text-gray-600 transition-colors">Cursos</a>
+                <a href="{{ url_for('index') }}" class="hover:text-gray-600 transition-colors">Inicio</a>
+                <a href="{{ url_for('index') }}#cursos" class="hover:text-gray-600 transition-colors">Cursos</a>
                 <a href="https://github.com" target="_blank" class="hover:text-gray-600 transition-colors">Github</a>
             </div>
         </div>

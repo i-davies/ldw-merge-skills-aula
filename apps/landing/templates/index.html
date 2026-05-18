@@ -15,7 +15,7 @@
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for curso in cursos %}
-            <a href="/cursos/{{ curso.id }}/" class="group block h-full">
+            <a href="{{ url_for('curso_detalhe', curso_id=curso.id) }}" class="group block h-full">
                 <article class="bg-white border border-gray-100 rounded-2xl p-6 h-full flex flex-col hover:border-brand-200 hover:shadow-lg transition-all duration-300">
 
                     <div class="w-12 h-12 rounded-xl flex items-center mb-4" style="background-color: {{ curso.color }}15; color: {{ curso.color}};">

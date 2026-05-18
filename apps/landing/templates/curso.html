@@ -8,9 +8,9 @@
 <section class="max-w-4xl mx-auto px-6 pt-10">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-sm text-gray-400 mb-8">
-        <a href="/" class="hover:text-gray-600 transition-colors">Inicio</a>
+        <a href="{{ url_for('index') }}" class="hover:text-gray-600 transition-colors">Inicio</a>
         <i data-lucide="chevron-right" class="w-4 h-4"></i>
-        <a href="/#cursos" class="hover:text-gray-600 transition-colors">Cursos</a>
+        <a href="{{ url_for('index') }}#cursos" class="hover:text-gray-600 transition-colors">Cursos</a>
         <i data-lucide="chevron-right" class="w-4 h-4"></i>
         <span class="text-gray-600">{{ curso.title }}</span>
     </nav>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="mt-10">
-        <a href="/"
+        <a href="{{ url_for('index') }}"
            class="text-sm font-medium text-gray-500 hover:text-brand-600 transition-colors inline-flex items-center gap-1.5">
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
             Voltar ao Inicio
