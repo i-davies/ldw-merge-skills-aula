@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block description %}MergeSkills — Plataforma de cursos interativos.{% endblock %}">
+    <meta name="description" content="{% block description %}Aprenda tecnologia no seu ritmo. Plataforma de cursos interativos com quizzes práticos.{% endblock %}">
     <title>{% block title %}MergeSkills{% endblock %}</title>
+
+    <!-- Open Graph (Facebook, Linkedin, WhatsApp...) -->
+    <meta property="og:title" content="{% block og_title %}MergeSkills - Cursos Interativos{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Aprenda tecnologia no seu ritmo. Plataforma de cursos interativos com quizzes práticos.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://i-davies.github.io/ldw-merge-skills-aula/">
+    <meta property="og:image" content="https://i-davies.github.io/ldw-merge-skills-aula/static/og-banner.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block tw_title %}MergeSkills - Cursos Interativos{% endblock %}">
+    <meta property="twitter:description" content="{% block tw_description  %}Aprenda tecnologia no seu ritmo. Plataforma de cursos interativos com quizzes práticos.{% endblock %}">
+
+    <!-- JSON-LD  -->
+    {% block head_scripts%}{% endblock %}
 
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>

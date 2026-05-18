@@ -16,6 +16,8 @@ def create_app():
             "description": "Aprenda os conceitos essenciais da linguagem mais popular.",
             "total_lessons": 2,
             "color": "#306998",
+            "rating": 4.8,
+            "rating_count": 42,
         },
         {
             "id": 2,
@@ -24,6 +26,8 @@ def create_app():
             "description": "Crie APIs RESTful profissionais com documentacao automatica.",
             "total_lessons": 2,
             "color": "#FF5722",
+            "rating": 4.6,
+            "rating_count": 38,
         },
     ]
 
