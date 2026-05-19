@@ -12,22 +12,21 @@
 {% block head_scripts %}
 <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    "name": "{{curso.title}}",
-    "description": "{{curso.description}}",
-    "provider": {
-        "@type": "Organization",
-        "name": "MergeSkills",
-        "sameAs": "https://i-davies.github.io/ldw-merge-skills-aula"
-    },
-    "aggregateRating" : {
-        "@type": "AggregateRating",
-        "ratingValue": "{{curso.rating}}",
-        "bestRating": 5,
-        "ratingCount": "{{curso.rating_count}}",
-    }
-
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "{{ curso.title }}",
+  "description": "{{ curso.description }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "MergeSkills",
+    "sameAs": "https://i-davies.github.io/ldw-merge-skills-aula/"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ curso.rating }}",
+    "bestRating": "5",
+    "ratingCount": "{{ curso.rating_count }}"
+  }
 }
 </script>
 
