@@ -12,6 +12,10 @@ def curso_detalhe():
         yield {'curso_id': curso['id']}
 
 @freezer.register_generator
+def sitemap():
+    yield {}
+
+@freezer.register_generator
 def static():
     static_dir = os.path.join(app.root_path, 'static')
     for filename in os.listdir(static_dir):

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 
 
 def create_app():
@@ -60,6 +60,14 @@ def create_app():
     @app.route('/')
     def index():
         return render_template('index.html', cursos=CURSOS, features=FEATURES, tech_stack=TECH_STACK)
+
+
+    @app.route('/sitemap.xml')
+    def sitemap():
+        template = render_template('sitemap.xml', cursos=CURSOS)
+        response = make_response(template)
+        response.headers['Content-Type'] = 'application/xml'
+        return response
 
     @app.route('/cursos/<int:curso_id>/')
     def curso_detalhe(curso_id):
